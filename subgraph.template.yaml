@@ -2,5 +2,26 @@ specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
+  {{#ticket}}
+  - name: Ticket
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      address: "{{ticket.address}}"
+      abi: Ticket
+      startBlock: {{ticket.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappingForTicket.ts
+      entities:
+        - Ticket
+      abis:
+        - name: Ticket
+          file: "./node_modules/@pooltogether/v4-core/abis/Ticket.json"
+      eventHandlers:
+        - event: Delegated(indexed address,indexed address)
+          handler: handleNewUserTwab
+    {{/ticket}}
 
-templates:
