@@ -1,0 +1,54 @@
+{
+  "name": "twab-subgraph",
+  "license": "MIT",
+  "version": "1.0.0",
+  "scripts": {
+    "reinstall": "rm -rf node_modules/ && yarn",
+    "clean": "rm -rf build/ generated/",
+    
+
+    "prepare:mainnet": "mustache networks/mainnet.json subgraph.template.yaml subgraph.mainnet.yaml",
+    "prepare:rinkeby": "mustache networks/rinkeby.json subgraph.template.yaml subgraph.rinkeby.yaml",
+    "prepare:polygon": "mustache networks/polygon.json subgraph.template.yaml subgraph.polygon.yaml",
+
+
+    
+    "gen:mainnet": "graph codegen subgraph.mainnet.yaml",
+    "gen:rinkeby": "graph codegen subgraph.rinkeby.yaml",
+    "gen:polygon": "graph codegen subgraph.polygon.yaml",
+
+    "deploy:mainnet": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ pooltogether/pooltogether-v3_4_3 subgraph.mainnet.yaml",
+    "deploy:mainnet-stg": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ pooltogether/pooltogether-staging-v3_4_3 subgraph.mainnet.yaml",
+    
+    "deploy:rinkeby": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ pooltogether/rinkeby-v3_4_3 subgraph.rinkeby.yaml",
+    "deploy:rinkeby-stg": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ pooltogether/rinkeby-staging-v3_3_8 subgraph.rinkeby.yaml",
+    
+    "deploy:polygon": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ pooltogether/polygon-v3_4_3 subgraph.polygon.yaml",
+    "deploy:polygon-stg": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ pooltogether/polygon-staging-v3_4_3 subgraph.polygon.yaml",
+    
+
+    "all-rinkeby": "yarn clean && yarn prepare:rinkeby && yarn gen:rinkeby && yarn deploy:rinkeby",
+    "all-rinkeby-stg": "yarn clean && yarn prepare:rinkeby && yarn gen:rinkeby && yarn deploy:rinkeby-stg",
+
+    "all-polygon": "yarn clean && yarn prepare:polygon && yarn gen:polygon && yarn deploy:polygon",
+    "all-polygon-stg": "yarn clean && yarn prepare:polygon && yarn gen:polygon && yarn deploy:polygon-stg",
+    
+    "all-mainnet": "yarn clean && yarn prepare:mainnet && yarn gen:mainnet && yarn deploy:mainnet",
+    "all-mainnet-stg": "yarn clean && yarn prepare:mainnet && yarn gen:mainnet && yarn deploy:mainnet-stg",
+        
+
+    "codegen": "graph codegen",
+    "build:mainnet": "graph build subgraph.mainnet.yaml",
+    "build:rinkeby": "graph build subgraph.rinkeby.yaml",
+    "build:polygon": "graph build subgraph.polygon.yaml",
+  
+    "auth": "graph auth https://api.thegraph.com/deploy/",
+    "tag-release": "PACKAGE_VERSION=$(./scripts/package-version.sh) && git tag -ae v$PACKAGE_VERSION && git push --tags"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "^0.19.0",
+    "@graphprotocol/graph-ts": "^0.20.1",
+    "@pooltogether/v4-core": "1.1.0",
+    "mustache": "^4.0.1"
+  }
+}

@@ -1,0 +1,16 @@
+node_modules
+.history
+build
+
+
+subgraph.yaml
+
+subgraph.rinkeby.yaml
+subgraph.mainnet.yaml
+subgraph.polygon.yaml
+
+
+networks/local.json
+generated
+generated/schema.ts
+build
