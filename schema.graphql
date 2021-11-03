@@ -10,7 +10,7 @@ type Account @entity {
 	
   ticket: Ticket
 
-  twabs: [Twab!]! @derivedFrom(field: "account")
+  twabs: [Twab]! @derivedFrom(field: "account")
 }
 
 type Twab @entity {
