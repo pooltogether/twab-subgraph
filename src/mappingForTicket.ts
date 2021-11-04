@@ -25,7 +25,7 @@ export function handleNewUserTwab(event: NewUserTwab): void {
     const delegateAccountDetails = ticketContract.getAccountDetails(delegate) // rpc call to get the account details of the delegate
 
     // update the balance of the delegate
-    delegateAccount.delegateBalance = delegateAccount.delegateBalance.minus(delegateAccountDetails.balance)
+    delegateAccount.delegateBalance = delegateAccountDetails.balance
 
     // if the balance is 0 set zeroBalanceOccurredAt
     if(delegateAccount.delegateBalance.equals(ZERO)){

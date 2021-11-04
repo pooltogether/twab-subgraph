@@ -21,7 +21,7 @@ dataSources:
         - name: Ticket
           file: "./node_modules/@pooltogether/v4-core/abis/Ticket.json"
       eventHandlers:
-        - event: Delegated(indexed address,indexed address)
+        - event: NewUserTwab(indexed address,(uint224,uint32))
           handler: handleNewUserTwab
     {{/ticket}}
 
