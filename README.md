@@ -21,4 +21,10 @@ $ yarn clean && yarn prepare:local && graph gen:local && yarn create:local && ya
 $ yarn clean && yarn prepare:rinkeby && yarn gen:rinkeby && yarn deploy:rinkeby
 ```
 
+### Hosted Subgraphs
+
+Subgraphs are hosted at the following URL:
+- https://thegraph.com/hosted-service/subgraph/pooltogether/mainnet-twab
+- https://thegraph.com/hosted-service/subgraph/pooltogether/polygon-twab
+
 
