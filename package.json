@@ -5,6 +5,8 @@
   "scripts": {
     "reinstall": "rm -rf node_modules/ && yarn",
     "clean": "rm -rf build/ generated/",
+    "format": "prettier --config .prettierrc --write \"**/*.{ts,js}\"",
+    "format:file": "prettier --config .prettierrc --write",
     "prepare:mainnet": "mustache networks/mainnet.json subgraph.template.yaml subgraph.mainnet.yaml",
     "prepare:polygon": "mustache networks/polygon.json subgraph.template.yaml subgraph.polygon.yaml",
     "gen:mainnet": "graph codegen subgraph.mainnet.yaml",
@@ -28,5 +30,8 @@
     "@pooltogether/v4-core": "1.1.0",
     "matchstick-as": "^0.2.0",
     "mustache": "^4.0.1"
+  },
+  "devDependencies": {
+    "prettier": "2.4.1"
   }
 }
