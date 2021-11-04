@@ -1,17 +1,21 @@
 import { log } from '@graphprotocol/graph-ts';
+
 import { NewUserTwab, Ticket } from '../generated/Ticket/Ticket';
-import { loadOrCreateAccount } from './helpers/loadOrCreateAccount';
+
+import { createAccount } from './helpers/createAccount';
 import { generateCompositeId, ZERO } from './helpers/common';
+import { createTicket } from './helpers/createTicket';
 import { createTwab } from './helpers/createTwab';
 
 export function handleNewUserTwab(event: NewUserTwab): void {
     log.warning('newUserTwab handler', []);
+
     // load Account entity for the to address
     const delegate = event.params.delegate;
     const ticketAddress = event.address.toHexString();
     const timestamp = event.block.timestamp;
 
-    const delegateAccount = loadOrCreateAccount(delegate.toHexString());
+    const delegateAccount = createAccount(delegate.toHexString());
 
     // if just created set ticket field
     if (delegateAccount.ticket == null) {
@@ -40,6 +44,11 @@ export function handleNewUserTwab(event: NewUserTwab): void {
     twab.save();
 
     log.warning('saving', []);
-    // save the accounts
+
+    // save accounts
     delegateAccount.save();
+
+    // save tickets
+    let ticket = createTicket(ticketAddress);
+    ticket.save();
 }

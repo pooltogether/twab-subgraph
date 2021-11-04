@@ -1,6 +1,6 @@
 import { Account } from '../../generated/schema';
 
-export function loadOrCreateAccount(id: string): Account {
+export function createAccount(id: string): Account {
     let delegateAccount = Account.load(id);
 
     // create case
@@ -8,5 +8,5 @@ export function loadOrCreateAccount(id: string): Account {
         delegateAccount = new Account(id);
     }
 
-    return delegateAccount;
+    return delegateAccount as Account;
 }

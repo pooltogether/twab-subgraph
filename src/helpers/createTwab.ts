@@ -9,5 +9,5 @@ export function createTwab(id: string): Twab {
         twab = new Twab(id);
     }
 
-    return twab;
+    return twab as Twab;
 }
