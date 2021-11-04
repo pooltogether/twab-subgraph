@@ -8,22 +8,23 @@
 
 ## PoolTogether v4 TWAB Subgraph
 
-Monitors changes in v4 Ticket TWAB
+Monitors changes in v4 Ticket TWAB.
 
-#### Quick-use:
+### Quick-use:
 
+#### For Mainnet:
 ```sh
-$ yarn clean && yarn prepare:local && graph gen:local && yarn create:local && yarn deploy:local
+$ yarn clean && yarn prepare:mainnet && yarn gen:mainnet && yarn deploy:mainnet
 ```
 
-###### For Rinkeby:
+#### For Polygon:
 ```sh
-$ yarn clean && yarn prepare:rinkeby && yarn gen:rinkeby && yarn deploy:rinkeby
+$ yarn clean && yarn prepare:polygon && yarn gen:polygon && yarn deploy:polygon
 ```
 
 ### Hosted Subgraphs
 
-Subgraphs are hosted at the following URL:
+Subgraphs are hosted at the following URLs:
 - https://thegraph.com/hosted-service/subgraph/pooltogether/mainnet-twab
 - https://thegraph.com/hosted-service/subgraph/pooltogether/polygon-twab
 
