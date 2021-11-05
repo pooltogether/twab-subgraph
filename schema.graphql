@@ -8,7 +8,7 @@ type Account @entity {
 	delegateBalance: BigInt
 	zeroBalanceOccurredAt: BigInt
   ticket: Ticket
-  twabs: [Twab]! @derivedFrom(field: "account")
+  twabs: [Twab!]! @derivedFrom(field: "account")
 }
 
 type Twab @entity {

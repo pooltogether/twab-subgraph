@@ -18,15 +18,15 @@
     "all-polygon-stg": "yarn clean && yarn prepare:polygon && yarn gen:polygon && yarn deploy:polygon-stg",
     "all-mainnet": "yarn clean && yarn prepare:mainnet && yarn gen:mainnet && yarn deploy:mainnet",
     "all-mainnet-stg": "yarn clean && yarn prepare:mainnet && yarn gen:mainnet && yarn deploy:mainnet-stg",
-    "codegen": "graph codegen",
     "build:mainnet": "graph build subgraph.mainnet.yaml",
     "build:polygon": "graph build subgraph.polygon.yaml",
     "auth": "graph auth https://api.thegraph.com/deploy/",
-    "tag-release": "PACKAGE_VERSION=$(./scripts/package-version.sh) && git tag -ae v$PACKAGE_VERSION && git push --tags"
+    "tag-release": "PACKAGE_VERSION=$(./scripts/package-version.sh) && git tag -ae v$PACKAGE_VERSION && git push --tags",
+    "test": "graph test"
   },
   "dependencies": {
-    "@graphprotocol/graph-cli": "0.19.0",
-    "@graphprotocol/graph-ts": "0.20.1",
+    "@graphprotocol/graph-cli": "0.23.1",
+    "@graphprotocol/graph-ts": "0.23.1",
     "@pooltogether/v4-core": "1.1.0",
     "matchstick-as": "0.2.0",
     "mustache": "4.0.1"
