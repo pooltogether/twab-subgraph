@@ -1,7 +1,7 @@
 import { NewUserTwab, Ticket } from '../../generated/Ticket/Ticket';
-import { createAccount } from '../helpers/createAccount';
 import { generateCompositeId, ZERO } from '../helpers/common';
-import { createTwab } from '../helpers/createTwab';
+import { loadOrCreateAccount } from '../helpers/loadOrCreateAccount';
+import { loadOrCreateTwab } from '../helpers/loadOrCreateTwab';
 
 export function handleNewUserTwab(event: NewUserTwab): void {
     // load Account entity for the to address
@@ -10,7 +10,7 @@ export function handleNewUserTwab(event: NewUserTwab): void {
     const ticketAddress = event.address.toHexString();
     const timestamp = event.block.timestamp;
 
-    const delegateAccount = createAccount(delegate.toHexString());
+    const delegateAccount = loadOrCreateAccount(delegate.toHexString());
 
     // if just created set ticket field
     if (delegateAccount.ticket == null) {
@@ -31,7 +31,7 @@ export function handleNewUserTwab(event: NewUserTwab): void {
     }
 
     // create twab
-    let twab = createTwab(generateCompositeId(delegate.toHexString(), timestamp.toHexString()));
+    let twab = loadOrCreateTwab(generateCompositeId(delegate.toHexString(), timestamp.toHexString()));
     twab.timestamp = timestamp;
     twab.amount = delegateAccountDetails.balance;
     twab.account = delegateAccount.id;

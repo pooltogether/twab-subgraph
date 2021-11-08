@@ -1,7 +1,6 @@
 import { Twab } from '../../generated/schema';
 
-// should always be creating a TWAB
-export function createTwab(id: string): Twab {
+export function loadOrCreateTwab(id: string): Twab {
     let twab = Twab.load(id);
 
     // create case
