@@ -1,7 +1,6 @@
 import { NewUserTwab, Ticket } from '../../generated/Ticket/Ticket';
 import { createAccount } from '../helpers/createAccount';
 import { generateCompositeId, ZERO } from '../helpers/common';
-import { createTicket } from '../helpers/createTicket';
 import { createTwab } from '../helpers/createTwab';
 
 export function handleNewUserTwab(event: NewUserTwab): void {
@@ -40,8 +39,4 @@ export function handleNewUserTwab(event: NewUserTwab): void {
 
     // save accounts
     delegateAccount.save();
-
-    // save tickets
-    let ticket = createTicket(ticketAddress);
-    ticket.save();
 }

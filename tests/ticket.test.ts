@@ -47,7 +47,6 @@ test('should handleNewUserTwab', () => {
     assert.fieldEquals('Twab', twabId, 'amount', delegateBalance.toString());
     assert.fieldEquals('Twab', twabId, 'account', accountId);
 
-    assert.fieldEquals('Ticket', ticketAddress, 'id', ticketAddress);
     clearStore();
 });
 
@@ -92,6 +91,5 @@ test('should handleNewUserTwab if delegateBalance is equal to zero', () => {
     assert.fieldEquals('Twab', twabId, 'amount', delegateBalance.toString());
     assert.fieldEquals('Twab', twabId, 'account', accountId);
 
-    assert.fieldEquals('Ticket', ticketAddress, 'id', ticketAddress);
     clearStore();
 });
