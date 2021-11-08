@@ -1,95 +1,101 @@
-import { Address, ethereum } from '@graphprotocol/graph-ts';
-import { assert, clearStore, createMockedFunction, test } from 'matchstick-as/assembly/index';
+import { Address } from '@graphprotocol/graph-ts';
+import { clearStore, test } from 'matchstick-as/assembly/index';
 
 import { generateCompositeId } from '../src/helpers/common';
-import { createNewUserTwabEvent } from './helpers/createNewUserTwabEvent';
+import { assertAccountFields, assertTwabFields } from './helpers/assertField';
+import { createNewUserTwabEvent } from './helpers/mockedEvent';
+import { mockGetAccountDetailsFunction } from './helpers/mockedFunction';
 import { handleNewUserTwab } from '../src/mappings/ticket';
 
 const delegateAddress = Address.fromString('0x897ea87eC79b9Fe5425f9f6c072c5Aa467bAdB0f');
+const accountId = delegateAddress.toHexString();
+
+const delegateBalance = 100;
+const zeroDelegateBalance = 0;
+const nextTwabIndex = 1;
+const cardinality = 32;
 
 test('should handleNewUserTwab', () => {
-    const delegateBalance = 100;
-    const nextTwabIndex = 1;
-    const cardinality = 32;
-
-    const newUserTwabEvent = createNewUserTwabEvent(delegateAddress.toHexString(), delegateBalance, 1635493033);
+    const newUserTwabEvent = createNewUserTwabEvent(
+        delegateAddress.toHexString(),
+        delegateBalance,
+        1635493033,
+    );
 
     const ticketAddress = newUserTwabEvent.address.toHexString();
     const blockTimestamp = newUserTwabEvent.block.timestamp;
 
-    createMockedFunction(
-        newUserTwabEvent.address,
-        'getAccountDetails',
-        'getAccountDetails(address):((uint208,uint24,uint24))',
-    )
-        .withArgs([ethereum.Value.fromAddress(delegateAddress)])
-        .returns([
-            ethereum.Value.fromTuple(
-                changetype<ethereum.Tuple>([
-                    ethereum.Value.fromI32(delegateBalance),
-                    ethereum.Value.fromI32(nextTwabIndex),
-                    ethereum.Value.fromI32(cardinality),
-                ]),
-            ),
-        ]);
+    mockGetAccountDetailsFunction(
+        newUserTwabEvent,
+        delegateAddress,
+        delegateBalance,
+        nextTwabIndex,
+        cardinality,
+    );
 
     handleNewUserTwab(newUserTwabEvent);
 
-    const accountId = delegateAddress.toHexString();
     const twabId = generateCompositeId(delegateAddress.toHexString(), blockTimestamp.toHexString());
 
-    assert.fieldEquals('Account', accountId, 'id', accountId);
-    assert.fieldEquals('Account', accountId, 'ticket', ticketAddress);
-    assert.fieldEquals('Account', accountId, 'delegateBalance', delegateBalance.toString());
-
-    assert.fieldEquals('Twab', twabId, 'id', twabId);
-    assert.fieldEquals('Twab', twabId, 'timestamp', blockTimestamp.toString());
-    assert.fieldEquals('Twab', twabId, 'amount', delegateBalance.toString());
-    assert.fieldEquals('Twab', twabId, 'account', accountId);
+    assertAccountFields(accountId, ticketAddress, blockTimestamp, delegateBalance);
+    assertTwabFields(accountId, twabId, blockTimestamp, delegateBalance);
 
     clearStore();
 });
 
-test('should handleNewUserTwab if delegateBalance is equal to zero', () => {
-    const delegateBalance = 0;
-    const nextTwabIndex = 1;
-    const cardinality = 32;
+test('should handleNewUserTwab if delegateBalance is equal to zero, then superior to zero', () => {
+    const firstNewUserTwabEvent = createNewUserTwabEvent(
+        delegateAddress.toHexString(),
+        zeroDelegateBalance,
+        1635493033,
+    );
 
-    const newUserTwabEvent = createNewUserTwabEvent(delegateAddress.toHexString(), delegateBalance, 1635493033);
+    const ticketAddress = firstNewUserTwabEvent.address.toHexString();
+    const firstBlockTimestamp = firstNewUserTwabEvent.block.timestamp;
 
-    const ticketAddress = newUserTwabEvent.address.toHexString();
-    const blockTimestamp = newUserTwabEvent.block.timestamp;
+    mockGetAccountDetailsFunction(
+        firstNewUserTwabEvent,
+        delegateAddress,
+        zeroDelegateBalance,
+        nextTwabIndex,
+        cardinality,
+    );
 
-    createMockedFunction(
-        newUserTwabEvent.address,
-        'getAccountDetails',
-        'getAccountDetails(address):((uint208,uint24,uint24))',
-    )
-        .withArgs([ethereum.Value.fromAddress(delegateAddress)])
-        .returns([
-            ethereum.Value.fromTuple(
-                changetype<ethereum.Tuple>([
-                    ethereum.Value.fromI32(delegateBalance),
-                    ethereum.Value.fromI32(nextTwabIndex),
-                    ethereum.Value.fromI32(cardinality),
-                ]),
-            ),
-        ]);
+    handleNewUserTwab(firstNewUserTwabEvent);
 
-    handleNewUserTwab(newUserTwabEvent);
+    const firstTwabId = generateCompositeId(
+        delegateAddress.toHexString(),
+        firstBlockTimestamp.toHexString(),
+    );
 
-    const accountId = delegateAddress.toHexString();
-    const twabId = generateCompositeId(delegateAddress.toHexString(), blockTimestamp.toHexString());
+    assertAccountFields(accountId, ticketAddress, firstBlockTimestamp, zeroDelegateBalance);
+    assertTwabFields(accountId, firstTwabId, firstBlockTimestamp, zeroDelegateBalance);
 
-    assert.fieldEquals('Account', accountId, 'id', accountId);
-    assert.fieldEquals('Account', accountId, 'ticket', ticketAddress);
-    assert.fieldEquals('Account', accountId, 'delegateBalance', delegateBalance.toString());
-    assert.fieldEquals('Account', accountId, 'zeroBalanceOccurredAt', blockTimestamp.toString());
+    const secondNewUserTwabEvent = createNewUserTwabEvent(
+        delegateAddress.toHexString(),
+        delegateBalance,
+        1635493034,
+    );
 
-    assert.fieldEquals('Twab', twabId, 'id', twabId);
-    assert.fieldEquals('Twab', twabId, 'timestamp', blockTimestamp.toString());
-    assert.fieldEquals('Twab', twabId, 'amount', delegateBalance.toString());
-    assert.fieldEquals('Twab', twabId, 'account', accountId);
+    const secondBlockTimestamp = secondNewUserTwabEvent.block.timestamp;
+
+    mockGetAccountDetailsFunction(
+        secondNewUserTwabEvent,
+        delegateAddress,
+        delegateBalance,
+        nextTwabIndex,
+        cardinality,
+    );
+
+    handleNewUserTwab(secondNewUserTwabEvent);
+
+    const secondTwabId = generateCompositeId(
+        delegateAddress.toHexString(),
+        secondBlockTimestamp.toHexString(),
+    );
+
+    assertAccountFields(accountId, ticketAddress, secondBlockTimestamp, delegateBalance);
+    assertTwabFields(accountId, secondTwabId, secondBlockTimestamp, delegateBalance);
 
     clearStore();
 });

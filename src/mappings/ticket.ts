@@ -28,10 +28,15 @@ export function handleNewUserTwab(event: NewUserTwab): void {
     // if the balance is 0 set zeroBalanceOccurredAt
     if (delegateAccount.delegateBalance == ZERO) {
         delegateAccount.zeroBalanceOccurredAt = event.block.timestamp;
+    } else {
+        delegateAccount.zeroBalanceOccurredAt = null;
     }
 
     // create twab
-    let twab = loadOrCreateTwab(generateCompositeId(delegate.toHexString(), timestamp.toHexString()));
+    let twab = loadOrCreateTwab(
+        generateCompositeId(delegate.toHexString(), timestamp.toHexString()),
+    );
+
     twab.timestamp = timestamp;
     twab.amount = delegateAccountDetails.balance;
     twab.account = delegateAccount.id;
