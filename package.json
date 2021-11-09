@@ -5,28 +5,33 @@
   "scripts": {
     "reinstall": "rm -rf node_modules/ && yarn",
     "clean": "rm -rf build/ generated/",
+    "format": "prettier --config .prettierrc --write \"**/*.{ts,js}\"",
+    "format:file": "prettier --config .prettierrc --write",
     "prepare:mainnet": "mustache networks/mainnet.json subgraph.template.yaml subgraph.mainnet.yaml",
     "prepare:polygon": "mustache networks/polygon.json subgraph.template.yaml subgraph.polygon.yaml",
     "gen:mainnet": "graph codegen subgraph.mainnet.yaml",
     "gen:polygon": "graph codegen subgraph.polygon.yaml",
-    "deploy:mainnet": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ pooltogether/mainnet-twab subgraph.mainnet.yaml",
-    "deploy:polygon": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ pooltogether/polygon-twab subgraph.polygon.yaml",
-    "deploy:polygon-stg": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ pooltogether/polygon-staging-v3_4_3 subgraph.polygon.yaml",
+    "deploy:mainnet": "graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ pooltogether/mainnet-twab subgraph.mainnet.yaml",
+    "deploy:polygon": "graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ pooltogether/polygon-twab subgraph.polygon.yaml",
+    "deploy:polygon-stg": "graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ pooltogether/polygon-staging-v3_4_3 subgraph.polygon.yaml",
     "all-polygon": "yarn clean && yarn prepare:polygon && yarn gen:polygon && yarn deploy:polygon",
     "all-polygon-stg": "yarn clean && yarn prepare:polygon && yarn gen:polygon && yarn deploy:polygon-stg",
     "all-mainnet": "yarn clean && yarn prepare:mainnet && yarn gen:mainnet && yarn deploy:mainnet",
     "all-mainnet-stg": "yarn clean && yarn prepare:mainnet && yarn gen:mainnet && yarn deploy:mainnet-stg",
-    "codegen": "graph codegen",
     "build:mainnet": "graph build subgraph.mainnet.yaml",
     "build:polygon": "graph build subgraph.polygon.yaml",
     "auth": "graph auth https://api.thegraph.com/deploy/",
-    "tag-release": "PACKAGE_VERSION=$(./scripts/package-version.sh) && git tag -ae v$PACKAGE_VERSION && git push --tags"
+    "tag-release": "PACKAGE_VERSION=$(./scripts/package-version.sh) && git tag -ae v$PACKAGE_VERSION && git push --tags",
+    "test": "graph test"
   },
   "dependencies": {
-    "@graphprotocol/graph-cli": "^0.19.0",
-    "@graphprotocol/graph-ts": "^0.20.1",
+    "@graphprotocol/graph-cli": "0.23.1",
+    "@graphprotocol/graph-ts": "0.23.1",
     "@pooltogether/v4-core": "1.1.0",
-    "matchstick-as": "^0.2.0",
-    "mustache": "^4.0.1"
+    "matchstick-as": "0.2.0",
+    "mustache": "4.0.1"
+  },
+  "devDependencies": {
+    "prettier": "2.4.1"
   }
 }

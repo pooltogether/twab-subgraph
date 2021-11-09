@@ -1,5 +1,5 @@
 type Ticket @entity {
-  id: ID! #ticket address
+  id: ID! # ticket address
 	accounts: [Account!]! @derivedFrom(field: "ticket")
 }
 
@@ -7,17 +7,13 @@ type Account @entity {
   id: ID! # ticket holder address
 	delegateBalance: BigInt
 	zeroBalanceOccurredAt: BigInt
-	
   ticket: Ticket
-
-  twabs: [Twab]! @derivedFrom(field: "account")
+  twabs: [Twab!]! @derivedFrom(field: "account")
 }
 
 type Twab @entity {
   id: ID! # delegate address + timestamp
-	
   amount: BigInt
 	timestamp: BigInt
-
   account: Account!
 }
