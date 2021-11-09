@@ -6,6 +6,7 @@ export function loadOrCreateTicket(id: string): Ticket {
     // create case
     if (ticket == null) {
         ticket = new Ticket(id);
+        ticket.save();
     }
 
     return ticket as Ticket;
