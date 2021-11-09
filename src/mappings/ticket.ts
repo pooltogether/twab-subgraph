@@ -1,6 +1,7 @@
 import { NewUserTwab, Ticket } from '../../generated/Ticket/Ticket';
 import { generateCompositeId, ZERO } from '../helpers/common';
 import { loadOrCreateAccount } from '../helpers/loadOrCreateAccount';
+import { loadOrCreateTicket } from '../helpers/loadOrCreateTicket';
 import { createTwab } from '../helpers/createTwab';
 
 export function handleNewUserTwab(event: NewUserTwab): void {
@@ -8,6 +9,8 @@ export function handleNewUserTwab(event: NewUserTwab): void {
     const delegate = event.params.delegate;
 
     const ticketAddress = event.address.toHexString();
+    loadOrCreateTicket(ticketAddress);
+
     const timestamp = event.block.timestamp;
 
     const delegateAccount = loadOrCreateAccount(delegate.toHexString());
