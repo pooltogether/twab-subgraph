@@ -40,6 +40,7 @@ export function handleNewUserTwab(event: NewUserTwab): void {
     twab.timestamp = timestamp;
     twab.amount = delegateAccountDetails.balance;
     twab.account = delegateAccount.id;
+    twab.delegateBalance = delegateAccountDetails.balance;
     twab.save();
 
     // save accounts

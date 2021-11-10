@@ -38,7 +38,7 @@ test('should handleNewUserTwab', () => {
     const twabId = generateCompositeId(delegateAddress.toHexString(), blockTimestamp.toHexString());
 
     assertAccountFields(accountId, ticketAddress, blockTimestamp, delegateBalance);
-    assertTwabFields(accountId, twabId, blockTimestamp, delegateBalance);
+    assertTwabFields(accountId, twabId, blockTimestamp, delegateBalance, delegateBalance);
 
     clearStore();
 });
@@ -69,7 +69,13 @@ test('should handleNewUserTwab if delegateBalance is equal to zero, then superio
     );
 
     assertAccountFields(accountId, ticketAddress, firstBlockTimestamp, zeroDelegateBalance);
-    assertTwabFields(accountId, firstTwabId, firstBlockTimestamp, zeroDelegateBalance);
+    assertTwabFields(
+        accountId,
+        firstTwabId,
+        firstBlockTimestamp,
+        zeroDelegateBalance,
+        zeroDelegateBalance,
+    );
 
     const secondNewUserTwabEvent = createNewUserTwabEvent(
         delegateAddress.toHexString(),
@@ -95,7 +101,13 @@ test('should handleNewUserTwab if delegateBalance is equal to zero, then superio
     );
 
     assertAccountFields(accountId, ticketAddress, secondBlockTimestamp, delegateBalance);
-    assertTwabFields(accountId, secondTwabId, secondBlockTimestamp, delegateBalance);
+    assertTwabFields(
+        accountId,
+        secondTwabId,
+        secondBlockTimestamp,
+        delegateBalance,
+        delegateBalance,
+    );
 
     clearStore();
 });

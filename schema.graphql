@@ -14,6 +14,7 @@ type Account @entity {
 type Twab @entity {
     id: ID! # delegate address + timestamp
     amount: BigInt!
+    delegateBalance: BigInt!
     timestamp: BigInt!
     account: Account!
 }
