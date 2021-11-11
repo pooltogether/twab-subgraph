@@ -8,16 +8,20 @@
 
 ## PoolTogether v4 TWAB Subgraph
 
+[![Coveralls](https://github.com/pooltogether/twab-subgraph/actions/workflows/main.yml/badge.svg)](https://github.com/pooltogether/twab-subgraph/actions/workflows/main.yml)
+
 Monitors changes in v4 Ticket TWAB.
 
 ### Quick-use:
 
 #### For Mainnet:
+
 ```sh
 $ yarn clean && yarn prepare:mainnet && yarn gen:mainnet && yarn deploy:mainnet
 ```
 
 #### For Polygon:
+
 ```sh
 $ yarn clean && yarn prepare:polygon && yarn gen:polygon && yarn deploy:polygon
 ```
@@ -25,7 +29,6 @@ $ yarn clean && yarn prepare:polygon && yarn gen:polygon && yarn deploy:polygon
 ### Hosted Subgraphs
 
 Subgraphs are hosted at the following URLs:
-- https://thegraph.com/hosted-service/subgraph/pooltogether/mainnet-twab
-- https://thegraph.com/hosted-service/subgraph/pooltogether/polygon-twab
 
-
+-   https://thegraph.com/hosted-service/subgraph/pooltogether/mainnet-twab
+-   https://thegraph.com/hosted-service/subgraph/pooltogether/polygon-twab
