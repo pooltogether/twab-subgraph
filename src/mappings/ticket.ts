@@ -38,9 +38,9 @@ export function handleNewUserTwab(event: NewUserTwab): void {
     let twab = createTwab(generateCompositeId(delegate.toHexString(), timestamp.toHexString()));
 
     twab.timestamp = timestamp;
-    twab.amount = delegateAccountDetails.balance;
+    twab.amount = event.params.newTwab.amount;
     twab.account = delegateAccount.id;
-    twab.delegateBalance = delegateAccountDetails.balance;
+    twab.delegateBalance = delegateAccount.delegateBalance;
     twab.save();
 
     // save accounts
