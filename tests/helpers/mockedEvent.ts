@@ -23,13 +23,6 @@ export function createNewUserTwabEvent(delegate: string, amount: i32, timestamp:
         ethereum.Value.fromAddress(Address.fromString(delegate)),
     );
 
-    // let newTwabParam = new ethereum.EventParam(
-    //     'newTwab',
-    //     ethereum.Value.fromArray([
-    //         ethereum.Value.fromI32(newTwabAmount),
-    //         ethereum.Value.fromI32(newTwabTimestamp),
-    //     ]),
-    // );
     let newTwabParam = new ethereum.EventParam(
         'newTwab',
         ethereum.Value.fromTuple(
