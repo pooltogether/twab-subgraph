@@ -3,11 +3,7 @@ import { newMockEvent } from 'matchstick-as/assembly/index';
 
 import { NewUserTwab } from '../../generated/Ticket/Ticket';
 
-export function createNewUserTwabEvent(
-    delegate: string,
-    newTwabAmount: i32,
-    newTwabTimestamp: i32,
-): NewUserTwab {
+export function createNewUserTwabEvent(delegate: string, amount: i32, timestamp: i32): NewUserTwab {
     let mockEvent = newMockEvent();
 
     let newUserTwabEvent = new NewUserTwab(
@@ -29,10 +25,12 @@ export function createNewUserTwabEvent(
 
     let newTwabParam = new ethereum.EventParam(
         'newTwab',
-        ethereum.Value.fromArray([
-            ethereum.Value.fromI32(newTwabAmount),
-            ethereum.Value.fromI32(newTwabTimestamp),
-        ]),
+        ethereum.Value.fromTuple(
+            changetype<ethereum.Tuple>([
+                ethereum.Value.fromI32(amount),
+                ethereum.Value.fromI32(timestamp),
+            ]),
+        ),
     );
 
     newUserTwabEvent.parameters.push(delegateParam);

@@ -28,9 +28,11 @@ export const assertTwabFields = (
     twabId: string,
     blockTimestamp: BigInt,
     delegateBalance: i32,
+    amount: i32,
 ): void => {
     assert.fieldEquals('Twab', twabId, 'id', twabId);
     assert.fieldEquals('Twab', twabId, 'timestamp', blockTimestamp.toString());
-    assert.fieldEquals('Twab', twabId, 'amount', delegateBalance.toString());
+    assert.fieldEquals('Twab', twabId, 'amount', amount.toString());
     assert.fieldEquals('Twab', twabId, 'account', accountId);
+    assert.fieldEquals('Twab', twabId, 'delegateBalance', delegateBalance.toString());
 };

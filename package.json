@@ -13,7 +13,7 @@
     "gen:polygon": "graph codegen subgraph.polygon.yaml",
     "deploy:mainnet": "graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ pooltogether/mainnet-twab subgraph.mainnet.yaml",
     "deploy:polygon": "graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ pooltogether/polygon-twab subgraph.polygon.yaml",
-    "deploy:polygon-stg": "graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ pooltogether/polygon-staging-v3_4_3 subgraph.polygon.yaml",
+    "deploy:polygon-stg": "graph deploy --product hosted-service --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ <> subgraph.polygon.yaml",
     "all-polygon": "yarn clean && yarn prepare:polygon && yarn gen:polygon && yarn deploy:polygon",
     "all-polygon-stg": "yarn clean && yarn prepare:polygon && yarn gen:polygon && yarn deploy:polygon-stg",
     "all-mainnet": "yarn clean && yarn prepare:mainnet && yarn gen:mainnet && yarn deploy:mainnet",
