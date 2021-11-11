@@ -5,7 +5,7 @@ type Ticket @entity {
 
 type Account @entity {
     id: ID! # ticket holder address
-    delegateBalance: BigInt
+    delegateBalance: BigInt!
     zeroBalanceOccurredAt: BigInt
     ticket: Ticket
     twabs: [Twab!]! @derivedFrom(field: "account")

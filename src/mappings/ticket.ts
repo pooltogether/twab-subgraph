@@ -13,36 +13,34 @@ export function handleNewUserTwab(event: NewUserTwab): void {
 
     const timestamp = event.block.timestamp;
 
-    const delegateAccount = loadOrCreateAccount(delegate.toHexString());
+    const account = loadOrCreateAccount(delegate.toHexString());
 
     // if just created set ticket field
-    if (delegateAccount.ticket == null) {
-        delegateAccount.ticket = ticketAddress;
+    if (account.ticket == null) {
+        account.ticket = ticketAddress;
     }
 
     // bind to Ticket and get the balanceOf (this is the amount being Delegated)
     const ticketContract = Ticket.bind(event.address);
-
-    const delegateAccountDetails = ticketContract.getAccountDetails(delegate); // rpc call to get the account details of the delegate
+    const accountDetails = ticketContract.getAccountDetails(delegate); // rpc call to get the account details of the delegate
 
     // update the balance of the delegate
-    delegateAccount.delegateBalance = delegateAccountDetails.balance;
+    account.delegateBalance = accountDetails.balance;
 
     // if the balance is 0 set zeroBalanceOccurredAt
-    if (delegateAccount.delegateBalance == ZERO) {
-        delegateAccount.zeroBalanceOccurredAt = event.block.timestamp;
+    if (account.delegateBalance == ZERO) {
+        account.zeroBalanceOccurredAt = event.block.timestamp;
     } else {
-        delegateAccount.zeroBalanceOccurredAt = null;
+        account.zeroBalanceOccurredAt = null;
     }
 
     let twab = createTwab(generateCompositeId(delegate.toHexString(), timestamp.toHexString()));
-
     twab.timestamp = timestamp;
     twab.amount = event.params.newTwab.amount;
-    twab.account = delegateAccount.id;
-    twab.delegateBalance = delegateAccountDetails.balance;
+    twab.account = account.id;
+    twab.delegateBalance = accountDetails.balance;
     twab.save();
 
     // save accounts
-    delegateAccount.save();
+    account.save();
 }
