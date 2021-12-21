@@ -8,7 +8,7 @@ subgraph.yaml
 subgraph.rinkeby.yaml
 subgraph.mainnet.yaml
 subgraph.polygon.yaml
-
+subgraph.avalanche.yaml
 
 networks/local.json
 generated
