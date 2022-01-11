@@ -10,17 +10,6 @@ export const assertAccountFields = (
     assert.fieldEquals('Account', accountId, 'id', accountId);
     assert.fieldEquals('Account', accountId, 'ticket', ticketAddress);
     assert.fieldEquals('Account', accountId, 'delegateBalance', delegateBalance.toString());
-
-    if (delegateBalance === 0) {
-        assert.fieldEquals(
-            'Account',
-            accountId,
-            'zeroBalanceOccurredAt',
-            blockTimestamp.toString(),
-        );
-    } else {
-        assert.fieldEquals('Account', accountId, 'zeroBalanceOccurredAt', 'null');
-    }
 };
 
 export const assertTwabFields = (

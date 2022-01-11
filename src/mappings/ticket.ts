@@ -27,13 +27,6 @@ export function handleNewUserTwab(event: NewUserTwab): void {
     // update the balance of the delegate
     account.delegateBalance = accountDetails.balance;
 
-    // if the balance is 0 set zeroBalanceOccurredAt
-    if (account.delegateBalance == ZERO) {
-        account.zeroBalanceOccurredAt = event.block.timestamp;
-    } else {
-        account.zeroBalanceOccurredAt = null;
-    }
-
     let twab = createTwab(generateCompositeId(delegate.toHexString(), timestamp.toHexString()));
     twab.timestamp = timestamp;
     twab.amount = event.params.newTwab.amount;
