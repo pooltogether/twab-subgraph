@@ -31,7 +31,7 @@
         "build:polygon": "graph build subgraph.polygon.yaml",
         "auth": "graph auth https://api.thegraph.com/deploy/",
         "tag-release": "PACKAGE_VERSION=$(./scripts/package-version.sh) && git tag -ae v$PACKAGE_VERSION && git push --tags",
-        "test": "yarn clean && yarn prepare:polygon && yarn gen:polygon && graph test"
+        "test": "yarn clean && yarn prepare:polygon && yarn gen:polygon && cp subgraph.polygon.yaml subgraph.yaml && graph test"
     },
     "dependencies": {
         "@graphprotocol/graph-cli": "0.23.1",

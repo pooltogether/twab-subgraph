@@ -8,6 +8,7 @@ subgraph.yaml
 subgraph.rinkeby.yaml
 subgraph.mainnet.yaml
 subgraph.polygon.yaml
+subgraph.mumbai.yaml
 subgraph.avalanche.yaml
 
 networks/local.json
