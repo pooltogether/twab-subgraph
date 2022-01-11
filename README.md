@@ -26,9 +26,16 @@ $ yarn clean && yarn prepare:mainnet && yarn gen:mainnet && yarn deploy:mainnet
 $ yarn clean && yarn prepare:polygon && yarn gen:polygon && yarn deploy:polygon
 ```
 
+#### For Avalanche:
+
+```sh
+$ yarn clean && yarn prepare:avalanche && yarn gen:avalanche && yarn deploy:avalanche
+```
+
 ### Hosted Subgraphs
 
 Subgraphs are hosted at the following URLs:
 
 -   https://thegraph.com/hosted-service/subgraph/pooltogether/mainnet-twab
 -   https://thegraph.com/hosted-service/subgraph/pooltogether/polygon-twab
+-   https://thegraph.com/hosted-service/subgraph/pooltogether/avalanche-twab
