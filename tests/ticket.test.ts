@@ -4,12 +4,14 @@ import { clearStore, test } from 'matchstick-as/assembly/index';
 import { generateCompositeId } from '../src/helpers/common';
 import { assertAccountFields, assertTwabFields } from './helpers/assertField';
 import { createNewUserTwabEvent } from './helpers/mockedEvent';
-import { mockGetAccountDetailsFunction } from './helpers/mockedFunction';
+import { mockBalanceOfFunction, mockGetAccountDetailsFunction } from './helpers/mockedFunction';
 import { handleNewUserTwab } from '../src/mappings/ticket';
 
 const delegateAddress = Address.fromString('0x897ea87eC79b9Fe5425f9f6c072c5Aa467bAdB0f');
 const accountId = delegateAddress.toHexString();
 
+const balance = 75;
+const delegatedBalance = 25;
 const delegateBalance = 100;
 const ZERO = 0;
 const twabAmount = 50;
@@ -34,11 +36,17 @@ test('should handleNewUserTwab', () => {
         cardinality,
     );
 
+    mockBalanceOfFunction(
+        newUserTwabEvent,
+        delegateAddress,
+        balance,
+    );
+
     handleNewUserTwab(newUserTwabEvent);
 
     const twabId = generateCompositeId(delegateAddress.toHexString(), blockTimestamp.toHexString());
 
-    assertAccountFields(accountId, ticketAddress, blockTimestamp, delegateBalance);
+    assertAccountFields(accountId, ticketAddress, balance, delegatedBalance, delegateBalance);
     assertTwabFields(accountId, twabId, blockTimestamp, delegateBalance, twabAmount);
 
     clearStore();
@@ -62,6 +70,12 @@ test('should handleNewUserTwab if delegateBalance is equal to zero, then superio
         cardinality,
     );
 
+    mockBalanceOfFunction(
+        firstNewUserTwabEvent,
+        delegateAddress,
+        ZERO,
+    );
+
     handleNewUserTwab(firstNewUserTwabEvent);
 
     const firstTwabId = generateCompositeId(
@@ -69,7 +83,7 @@ test('should handleNewUserTwab if delegateBalance is equal to zero, then superio
         firstBlockTimestamp.toHexString(),
     );
 
-    assertAccountFields(accountId, ticketAddress, firstBlockTimestamp, ZERO);
+    assertAccountFields(accountId, ticketAddress, ZERO, ZERO, ZERO);
     assertTwabFields(accountId, firstTwabId, firstBlockTimestamp, ZERO, twabAmount);
 
     const secondNewUserTwabEvent = createNewUserTwabEvent(
@@ -88,6 +102,12 @@ test('should handleNewUserTwab if delegateBalance is equal to zero, then superio
         cardinality,
     );
 
+    mockBalanceOfFunction(
+        secondNewUserTwabEvent,
+        delegateAddress,
+        balance,
+    );
+
     handleNewUserTwab(secondNewUserTwabEvent);
 
     const secondTwabId = generateCompositeId(
@@ -95,7 +115,7 @@ test('should handleNewUserTwab if delegateBalance is equal to zero, then superio
         secondBlockTimestamp.toHexString(),
     );
 
-    assertAccountFields(accountId, ticketAddress, secondBlockTimestamp, delegateBalance);
+    assertAccountFields(accountId, ticketAddress, balance, delegatedBalance, delegateBalance);
     assertTwabFields(
         accountId,
         secondTwabId,

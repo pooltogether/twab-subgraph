@@ -4,11 +4,14 @@ import { assert } from 'matchstick-as/assembly/index';
 export const assertAccountFields = (
     accountId: string,
     ticketAddress: string,
-    blockTimestamp: BigInt,
+    balance: i32,
+    delegatedBalance: i32,
     delegateBalance: i32,
 ): void => {
     assert.fieldEquals('Account', accountId, 'id', accountId);
     assert.fieldEquals('Account', accountId, 'ticket', ticketAddress);
+    assert.fieldEquals('Account', accountId, 'balance', balance.toString());
+    assert.fieldEquals('Account', accountId, 'delegatedBalance', delegatedBalance.toString());
     assert.fieldEquals('Account', accountId, 'delegateBalance', delegateBalance.toString());
 };
 

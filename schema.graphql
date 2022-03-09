@@ -4,8 +4,10 @@ type Ticket @entity {
 }
 
 type Account @entity {
-    id: ID! # ticket holder address
-    delegateBalance: BigInt!
+    id: ID! # account address
+    balance: BigInt! # ticket balance in user wallet
+    delegatedBalance: BigInt! # amount of tickets delegated to the account
+    delegateBalance: BigInt! # ticket balance + delegated balance
     ticket: Ticket
     twabs: [Twab!]! @derivedFrom(field: "account")
 }
