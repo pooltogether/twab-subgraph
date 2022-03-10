@@ -1,13 +1,18 @@
 import { Address } from '@graphprotocol/graph-ts';
-import { clearStore, test } from 'matchstick-as/assembly/index';
+import { assert, clearStore, test } from 'matchstick-as/assembly/index';
 
 import { generateCompositeId } from '../src/helpers/common';
-import { assertAccountFields, assertTwabFields } from './helpers/assertField';
-import { createNewUserTwabEvent } from './helpers/mockedEvent';
+import {
+    assertAccountFields,
+    assertDelegationFields,
+    assertTwabFields,
+} from './helpers/assertField';
+import { createDelegatedEvent, createNewUserTwabEvent } from './helpers/mockedEvent';
 import { mockBalanceOfFunction, mockGetAccountDetailsFunction } from './helpers/mockedFunction';
-import { handleNewUserTwab } from '../src/mappings/ticket';
+import { handleDelegated, handleNewUserTwab } from '../src/mappings/ticket';
 
 const delegateAddress = Address.fromString('0x897ea87eC79b9Fe5425f9f6c072c5Aa467bAdB0f');
+const delegateeAddress = Address.fromString('0x8a37cb10f5AB9374283237551E396b53194E64e3');
 const accountId = delegateAddress.toHexString();
 
 const balance = 75;
@@ -17,6 +22,51 @@ const ZERO = 0;
 const twabAmount = 50;
 const nextTwabIndex = 1;
 const cardinality = 32;
+
+test('should handleDelegated and record a delegation', () => {
+    const delegatedEvent = createDelegatedEvent(
+        delegateAddress.toHexString(),
+        delegateeAddress.toHexString(),
+    );
+
+    const blockTimestamp = delegatedEvent.block.timestamp;
+
+    handleDelegated(delegatedEvent);
+
+    const delegationId = generateCompositeId(
+        delegateAddress.toHexString(),
+        blockTimestamp.toHexString(),
+    );
+
+    assertDelegationFields(
+        delegationId,
+        delegateAddress.toHexString(),
+        delegateeAddress.toHexString(),
+        blockTimestamp,
+    );
+
+    clearStore();
+});
+
+test('should handleDelegated and not record a delegation if delegate and delegatee addresses are the same', () => {
+    const delegatedEvent = createDelegatedEvent(
+        delegateAddress.toHexString(),
+        delegateAddress.toHexString(),
+    );
+
+    const blockTimestamp = delegatedEvent.block.timestamp;
+
+    handleDelegated(delegatedEvent);
+
+    const delegationId = generateCompositeId(
+        delegateAddress.toHexString(),
+        blockTimestamp.toHexString(),
+    );
+
+    assert.notInStore('Delegation', delegationId)
+
+    clearStore();
+});
 
 test('should handleNewUserTwab', () => {
     const newUserTwabEvent = createNewUserTwabEvent(
@@ -36,11 +86,7 @@ test('should handleNewUserTwab', () => {
         cardinality,
     );
 
-    mockBalanceOfFunction(
-        newUserTwabEvent,
-        delegateAddress,
-        balance,
-    );
+    mockBalanceOfFunction(newUserTwabEvent, delegateAddress, balance);
 
     handleNewUserTwab(newUserTwabEvent);
 
@@ -70,11 +116,7 @@ test('should handleNewUserTwab if delegateBalance is equal to zero, then superio
         cardinality,
     );
 
-    mockBalanceOfFunction(
-        firstNewUserTwabEvent,
-        delegateAddress,
-        ZERO,
-    );
+    mockBalanceOfFunction(firstNewUserTwabEvent, delegateAddress, ZERO);
 
     handleNewUserTwab(firstNewUserTwabEvent);
 
@@ -102,11 +144,7 @@ test('should handleNewUserTwab if delegateBalance is equal to zero, then superio
         cardinality,
     );
 
-    mockBalanceOfFunction(
-        secondNewUserTwabEvent,
-        delegateAddress,
-        balance,
-    );
+    mockBalanceOfFunction(secondNewUserTwabEvent, delegateAddress, balance);
 
     handleNewUserTwab(secondNewUserTwabEvent);
 

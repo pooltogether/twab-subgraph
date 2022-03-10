@@ -30,13 +30,9 @@ export const mockGetAccountDetailsFunction = (
 export const mockBalanceOfFunction = (
     event: NewUserTwab,
     delegateAddress: Address,
-    balance: i32
+    balance: i32,
 ): void => {
-    createMockedFunction(
-        event.address,
-        'balanceOf',
-        'balanceOf(address):(uint256)',
-    )
+    createMockedFunction(event.address, 'balanceOf', 'balanceOf(address):(uint256)')
         .withArgs([ethereum.Value.fromAddress(delegateAddress)])
         .returns([ethereum.Value.fromI32(balance)]);
 };

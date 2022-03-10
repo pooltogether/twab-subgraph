@@ -1,7 +1,38 @@
 import { Address, ethereum } from '@graphprotocol/graph-ts';
 import { newMockEvent } from 'matchstick-as/assembly/index';
 
-import { NewUserTwab } from '../../generated/Ticket/Ticket';
+import { Delegated, NewUserTwab } from '../../generated/Ticket/Ticket';
+
+export function createDelegatedEvent(delegate: string, delegatee: string): Delegated {
+    let mockEvent = newMockEvent();
+
+    let delegatedEvent = new Delegated(
+        mockEvent.address,
+        mockEvent.logIndex,
+        mockEvent.transactionLogIndex,
+        mockEvent.logType,
+        mockEvent.block,
+        mockEvent.transaction,
+        mockEvent.parameters,
+    );
+
+    delegatedEvent.parameters = new Array();
+
+    let delegateParam = new ethereum.EventParam(
+        'delegate',
+        ethereum.Value.fromAddress(Address.fromString(delegate)),
+    );
+
+    let delegateeParam = new ethereum.EventParam(
+        'delegate',
+        ethereum.Value.fromAddress(Address.fromString(delegatee)),
+    );
+
+    delegatedEvent.parameters.push(delegateParam);
+    delegatedEvent.parameters.push(delegateeParam);
+
+    return delegatedEvent;
+}
 
 export function createNewUserTwabEvent(delegate: string, amount: i32, timestamp: i32): NewUserTwab {
     let mockEvent = newMockEvent();

@@ -12,6 +12,13 @@ type Account @entity {
     twabs: [Twab!]! @derivedFrom(field: "account")
 }
 
+type Delegation @entity {
+    id: ID! # delegate address + timestamp
+    delegate: Account!
+    delegatee: Account!
+    timestamp: BigInt!
+}
+
 type Twab @entity {
     id: ID! # delegate address + timestamp
     amount: BigInt!

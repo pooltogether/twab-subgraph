@@ -15,6 +15,18 @@ export const assertAccountFields = (
     assert.fieldEquals('Account', accountId, 'delegateBalance', delegateBalance.toString());
 };
 
+export const assertDelegationFields = (
+    delegationId: string,
+    delegateAddress: string,
+    delegateeAddress: string,
+    blockTimestamp: BigInt,
+): void => {
+    assert.fieldEquals('Delegation', delegationId, 'id', delegationId);
+    assert.fieldEquals('Delegation', delegationId, 'delegate', delegateAddress);
+    assert.fieldEquals('Delegation', delegationId, 'delegatee', delegateeAddress);
+    assert.fieldEquals('Delegation', delegationId, 'timestamp', blockTimestamp.toString());
+};
+
 export const assertTwabFields = (
     accountId: string,
     twabId: string,

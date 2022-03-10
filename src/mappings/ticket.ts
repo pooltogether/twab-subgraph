@@ -1,8 +1,30 @@
-import { NewUserTwab, Ticket } from '../../generated/Ticket/Ticket';
+import { Delegated, NewUserTwab, Ticket } from '../../generated/Ticket/Ticket';
 import { generateCompositeId, ZERO } from '../helpers/common';
 import { loadOrCreateAccount } from '../helpers/loadOrCreateAccount';
 import { loadOrCreateTicket } from '../helpers/loadOrCreateTicket';
 import { createTwab } from '../helpers/createTwab';
+import { createDelegation } from '../helpers/createDelegation';
+
+export function handleDelegated(event: Delegated): void {
+    const delegate = event.params.delegator;
+    const delegatee = event.params.delegate;
+    const timestamp = event.block.timestamp;
+
+    // We don't record delegation to themselves
+    if (delegate.toHex() != delegatee.toHex()) {
+        const delegateAccount = loadOrCreateAccount(delegate.toHexString());
+        const delegateeAccount = loadOrCreateAccount(delegatee.toHexString());
+
+        let delegation = createDelegation(
+            generateCompositeId(delegate.toHexString(), timestamp.toHexString()),
+        );
+
+        delegation.delegate = delegateAccount.id;
+        delegation.delegatee = delegateeAccount.id;
+        delegation.timestamp = timestamp;
+        delegation.save();
+    }
+}
 
 export function handleNewUserTwab(event: NewUserTwab): void {
     // load Account entity for the to address
@@ -26,7 +48,9 @@ export function handleNewUserTwab(event: NewUserTwab): void {
 
     account.balance = balance;
     account.delegateBalance = delegateTwab.balance;
-    account.delegatedBalance = delegateTwab.balance.gt(balance) ? delegateTwab.balance.minus(balance) : ZERO;
+    account.delegatedBalance = delegateTwab.balance.gt(balance)
+        ? delegateTwab.balance.minus(balance)
+        : ZERO;
 
     let twab = createTwab(generateCompositeId(delegate.toHexString(), timestamp.toHexString()));
     twab.timestamp = timestamp;

@@ -23,5 +23,7 @@ dataSources:
       eventHandlers:
         - event: NewUserTwab(indexed address,(uint224,uint32))
           handler: handleNewUserTwab
+        - event: Delegated(indexed address,indexed address)
+          handler: handleDelegated
     {{/ticket}}
 
