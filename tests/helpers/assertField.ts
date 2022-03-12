@@ -1,30 +1,31 @@
-import { BigInt } from '@graphprotocol/graph-ts';
+import { Address, BigInt } from '@graphprotocol/graph-ts';
 import { assert } from 'matchstick-as/assembly/index';
+
+import { Account } from '../../generated/schema';
+
+export const delegateAddress = Address.fromString('0x897ea87eC79b9Fe5425f9f6c072c5Aa467bAdB0f');
+export const delegateAccountId = delegateAddress.toHexString();
+
+export const delegateeAddress = Address.fromString('0x8a37cb10f5AB9374283237551E396b53194E64e3');
+export const delegateeAccountId = delegateeAddress.toHexString();
 
 export const assertAccountFields = (
     accountId: string,
     ticketAddress: string,
     balance: i32,
-    delegatedBalance: i32,
     delegateBalance: i32,
+    delegatee: Account | null = null,
 ): void => {
     assert.fieldEquals('Account', accountId, 'id', accountId);
     assert.fieldEquals('Account', accountId, 'ticket', ticketAddress);
     assert.fieldEquals('Account', accountId, 'balance', balance.toString());
-    assert.fieldEquals('Account', accountId, 'delegatedBalance', delegatedBalance.toString());
     assert.fieldEquals('Account', accountId, 'delegateBalance', delegateBalance.toString());
-};
 
-export const assertDelegationFields = (
-    delegationId: string,
-    delegateAddress: string,
-    delegateeAddress: string,
-    blockTimestamp: BigInt,
-): void => {
-    assert.fieldEquals('Delegation', delegationId, 'id', delegationId);
-    assert.fieldEquals('Delegation', delegationId, 'delegate', delegateAddress);
-    assert.fieldEquals('Delegation', delegationId, 'delegatee', delegateeAddress);
-    assert.fieldEquals('Delegation', delegationId, 'timestamp', blockTimestamp.toString());
+    if (delegatee) {
+        assert.fieldEquals('Account', accountId, 'delegatee', delegatee.id);
+    } else {
+        assert.fieldEquals('Account', accountId, 'delegatee', '');
+    }
 };
 
 export const assertTwabFields = (
