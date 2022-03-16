@@ -1,39 +1,72 @@
-import { NewUserTwab, Ticket } from '../../generated/Ticket/Ticket';
+import { Delegated, NewUserTwab, Ticket, Transfer } from '../../generated/Ticket/Ticket';
 import { generateCompositeId, ZERO } from '../helpers/common';
+import { setBalance, setDelegatee, setTicket } from '../helpers/account';
+import { createTwab } from '../helpers/createTwab';
 import { loadOrCreateAccount } from '../helpers/loadOrCreateAccount';
 import { loadOrCreateTicket } from '../helpers/loadOrCreateTicket';
-import { createTwab } from '../helpers/createTwab';
+import { setTwab } from '../helpers/twab';
+
+export function handleDelegated(event: Delegated): void {
+    const delegate = event.params.delegator;
+    const delegatee = event.params.delegate;
+
+    const ticketAddress = event.address.toHexString();
+    loadOrCreateTicket(ticketAddress);
+
+    const delegateAccount = loadOrCreateAccount(delegate.toHexString());
+    setTicket(ticketAddress, delegateAccount);
+
+    const delegateeAccount = loadOrCreateAccount(delegatee.toHexString());
+    setTicket(ticketAddress, delegateeAccount);
+
+    setDelegatee(delegateAccount, delegateeAccount.id);
+
+    delegateAccount.save();
+    delegateeAccount.save();
+}
 
 export function handleNewUserTwab(event: NewUserTwab): void {
-    // load Account entity for the to address
     const delegate = event.params.delegate;
 
     const ticketAddress = event.address.toHexString();
     loadOrCreateTicket(ticketAddress);
 
-    const timestamp = event.block.timestamp;
-
     const account = loadOrCreateAccount(delegate.toHexString());
-
-    // If just created set ticket field
-    if (account.ticket == null) {
-        account.ticket = ticketAddress;
-    }
+    setTicket(ticketAddress, account);
 
     const ticketContract = Ticket.bind(event.address);
-    const delegateTwab = ticketContract.getAccountDetails(delegate);
-    const balance = ticketContract.balanceOf(delegate);
+    const delegateAccountDetails = ticketContract.getAccountDetails(delegate);
+    setBalance(account, ticketContract, delegate, delegateAccountDetails);
 
-    account.balance = balance;
-    account.delegateBalance = delegateTwab.balance;
-    account.delegatedBalance = delegateTwab.balance.gt(balance) ? delegateTwab.balance.minus(balance) : ZERO;
+    const timestamp = event.block.timestamp;
+    const twab = createTwab(generateCompositeId(delegate.toHexString(), timestamp.toHexString()));
+    setTwab(twab, account, delegateAccountDetails, event.params.newTwab.amount, timestamp);
 
-    let twab = createTwab(generateCompositeId(delegate.toHexString(), timestamp.toHexString()));
-    twab.timestamp = timestamp;
-    twab.amount = event.params.newTwab.amount;
-    twab.account = account.id;
-    twab.delegateBalance = delegateTwab.balance;
     twab.save();
-
     account.save();
+}
+
+export function handleTransfer(event: Transfer): void {
+    const from = event.params.from;
+    const to = event.params.to;
+
+    const ticketAddress = event.address.toHexString();
+    loadOrCreateTicket(ticketAddress);
+
+    const fromAccount = loadOrCreateAccount(from.toHexString());
+    setTicket(ticketAddress, fromAccount);
+
+    const toAccount = loadOrCreateAccount(to.toHexString());
+    setTicket(ticketAddress, toAccount);
+
+    const ticketContract = Ticket.bind(event.address);
+
+    const fromAccountDetails = ticketContract.getAccountDetails(from);
+    setBalance(fromAccount, ticketContract, from, fromAccountDetails);
+
+    const toAccountDetails = ticketContract.getAccountDetails(to);
+    setBalance(toAccount, ticketContract, to, toAccountDetails);
+
+    fromAccount.save();
+    toAccount.save();
 }
