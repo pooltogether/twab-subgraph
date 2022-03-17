@@ -2,7 +2,6 @@ import { Address } from '@graphprotocol/graph-ts';
 
 import { Account } from '../../generated/schema';
 import { Ticket, Ticket__getAccountDetailsResultValue0Struct } from '../../generated/Ticket/Ticket';
-import { ZERO } from '../helpers/common';
 
 export const setTicket = (ticketAddress: string, account: Account): void => {
     // If just created set ticket field

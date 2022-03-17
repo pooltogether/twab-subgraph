@@ -10,7 +10,7 @@ type Account @entity {
     ticket: Ticket
     twabs: [Twab!]! @derivedFrom(field: "account")
     delegates: [Account!]! @derivedFrom(field: "delegatee") # accounts who delegated to this account
-    delegatee: Account!
+    delegatee: Account # account to whom this account delegates his tickets
 }
 
 type Twab @entity {

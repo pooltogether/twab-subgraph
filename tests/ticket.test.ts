@@ -73,6 +73,7 @@ test('should handleDelegated', () => {
         delegateBalance,
         delegateeAccount,
     );
+
     assertAccountFields(delegateeAccountId, ticketAddress, delegateBalance, balance);
 
     clearStore();

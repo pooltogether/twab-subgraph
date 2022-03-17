@@ -23,8 +23,6 @@ export const assertAccountFields = (
 
     if (delegatee) {
         assert.fieldEquals('Account', accountId, 'delegatee', delegatee.id);
-    } else {
-        assert.fieldEquals('Account', accountId, 'delegatee', '');
     }
 };
 
