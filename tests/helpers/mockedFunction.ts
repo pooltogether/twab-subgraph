@@ -1,11 +1,9 @@
 import { Address, ethereum } from '@graphprotocol/graph-ts';
 import { createMockedFunction } from 'matchstick-as/assembly/index';
 
-import { NewUserTwab } from '../../generated/Ticket/Ticket';
-
 export const mockGetAccountDetailsFunction = (
-    event: NewUserTwab,
-    delegateAddress: Address,
+    event: ethereum.Event,
+    userAddress: Address,
     balance: i32,
     nextTwabIndex: i32,
     cardinality: i32,
@@ -15,7 +13,7 @@ export const mockGetAccountDetailsFunction = (
         'getAccountDetails',
         'getAccountDetails(address):((uint208,uint24,uint24))',
     )
-        .withArgs([ethereum.Value.fromAddress(delegateAddress)])
+        .withArgs([ethereum.Value.fromAddress(userAddress)])
         .returns([
             ethereum.Value.fromTuple(
                 changetype<ethereum.Tuple>([
@@ -25,4 +23,14 @@ export const mockGetAccountDetailsFunction = (
                 ]),
             ),
         ]);
+};
+
+export const mockBalanceOfFunction = (
+    event: ethereum.Event,
+    userAddress: Address,
+    balance: i32,
+): void => {
+    createMockedFunction(event.address, 'balanceOf', 'balanceOf(address):(uint256)')
+        .withArgs([ethereum.Value.fromAddress(userAddress)])
+        .returns([ethereum.Value.fromI32(balance)]);
 };
