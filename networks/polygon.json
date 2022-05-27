@@ -1,7 +1,7 @@
 {
-  "network": "matic",
+  "network": "optimism-kovan",
   "ticket": {
-    "address": "0x6a304dFdb9f808741244b6bfEe65ca7B3b3A6076",
-    "startBlock": "20226775"
+    "address": "0x5E5b54cd73872ba3103cd95A58067A7079d0259b",
+    "startBlock": "3461704"
   }
 }
