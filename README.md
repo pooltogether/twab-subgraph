@@ -32,6 +32,12 @@ $ yarn clean && yarn prepare:polygon && yarn gen:polygon && yarn deploy:polygon
 $ yarn clean && yarn prepare:avalanche && yarn gen:avalanche && yarn deploy:avalanche
 ```
 
+#### For Optimism-Kovan:
+
+```sh
+$ yarn clean && yarn prepare:optimism-kovan && yarn gen:optimism-kovan && yarn deploy:optimism-kovan
+```
+
 ### Hosted Subgraphs
 
 Subgraphs are hosted at the following URLs:
@@ -39,3 +45,4 @@ Subgraphs are hosted at the following URLs:
 -   https://thegraph.com/hosted-service/subgraph/pooltogether/mainnet-twab
 -   https://thegraph.com/hosted-service/subgraph/pooltogether/polygon-twab
 -   https://thegraph.com/hosted-service/subgraph/pooltogether/avalanche-twab
+-   https://thegraph.com/hosted-service/subgraph/underethsea/pool-together-optimism-kovan-twab
