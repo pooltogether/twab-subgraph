@@ -45,4 +45,4 @@ Subgraphs are hosted at the following URLs:
 -   https://thegraph.com/hosted-service/subgraph/pooltogether/mainnet-twab
 -   https://thegraph.com/hosted-service/subgraph/pooltogether/polygon-twab
 -   https://thegraph.com/hosted-service/subgraph/pooltogether/avalanche-twab
--   https://thegraph.com/hosted-service/subgraph/underethsea/pool-together-optimism-kovan-twab
+-   https://thegraph.com/hosted-service/subgraph/pooltogether/optimism-kovan-twab
