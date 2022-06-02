@@ -10,6 +10,7 @@ subgraph.mainnet.yaml
 subgraph.polygon.yaml
 subgraph.mumbai.yaml
 subgraph.avalanche.yaml
+subgraph.optimism-kovan.yaml
 
 networks/local.json
 generated
