@@ -14,6 +14,7 @@ export function createDelegatedEvent(delegate: string, delegatee: string): Deleg
         mockEvent.block,
         mockEvent.transaction,
         mockEvent.parameters,
+        mockEvent.receipt,
     );
 
     delegatedEvent.parameters = new Array();
@@ -45,6 +46,7 @@ export function createNewUserTwabEvent(delegate: string, amount: i32, timestamp:
         mockEvent.block,
         mockEvent.transaction,
         mockEvent.parameters,
+        mockEvent.receipt,
     );
 
     newUserTwabEvent.parameters = new Array();
@@ -81,6 +83,7 @@ export function createTransferEvent(from: string, to: string, value: i32): Trans
         mockEvent.block,
         mockEvent.transaction,
         mockEvent.parameters,
+        mockEvent.receipt,
     );
 
     transferEvent.parameters = new Array();
