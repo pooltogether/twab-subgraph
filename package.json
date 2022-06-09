@@ -52,6 +52,7 @@
         "mustache": "4.2.0"
     },
     "devDependencies": {
+        "husky": "8.0.1",
         "prettier": "2.6.2"
     }
 }
