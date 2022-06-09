@@ -1,7 +1,8 @@
 {
   "network": "matic",
-  "ticket": {
+  "tickets": [{
     "address": "0x6a304dFdb9f808741244b6bfEe65ca7B3b3A6076",
-    "startBlock": "20226775"
-  }
+    "startBlock": "20226775",
+    "symbol": ""
+  }]
 }

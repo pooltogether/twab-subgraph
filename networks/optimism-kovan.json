@@ -1,7 +1,8 @@
 {
     "network": "optimism-kovan",
-    "ticket": {
+    "tickets": [{
       "address": "0xF567588A82660F9F93059E97063360900387a2cc",
-      "startBlock": "4614901"
-    }
+      "startBlock": "4614901",
+      "symbol": ""
+    }]
   }
