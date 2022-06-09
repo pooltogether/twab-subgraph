@@ -36,6 +36,7 @@
         "all-avalanche": "yarn clean && yarn prepare:avalanche && yarn gen:avalanche && yarn deploy:avalanche",
         "all-optimism-kovan": "yarn clean && yarn prepare:optimism-kovan && yarn gen:optimism-kovan && yarn deploy:optimism-kovan",
         "build:mainnet": "graph build subgraph.mainnet.yaml",
+        "build:rinkeby": "graph build subgraph.rinkeby.yaml",
         "build:polygon": "graph build subgraph.polygon.yaml",
         "build:optimism": "graph build subgraph.optimism.yaml",
         "build:avalanche": "graph build subgraph.avalanche.yaml",
