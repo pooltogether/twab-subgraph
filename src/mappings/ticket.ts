@@ -1,5 +1,5 @@
 import { Delegated, NewUserTwab, Ticket, Transfer } from '../../generated/Ticket/Ticket';
-import { generateCompositeId, ZERO } from '../helpers/common';
+import { generateCompositeId } from '../helpers/common';
 import { setBalance, setDelegatee, setTicket } from '../helpers/account';
 import { createTwab } from '../helpers/createTwab';
 import { loadOrCreateAccount } from '../helpers/loadOrCreateAccount';
