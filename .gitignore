@@ -18,5 +18,6 @@ generated
 generated/schema.ts
 build
 
-# Matchstick binaries
+# Matchstick
 tests/.bin/
+tests/.latest.json
