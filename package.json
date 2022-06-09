@@ -45,13 +45,13 @@
         "test": "yarn clean && yarn prepare:polygon && yarn gen:polygon && cp subgraph.polygon.yaml subgraph.yaml && graph test"
     },
     "dependencies": {
-        "@graphprotocol/graph-cli": "0.23.1",
-        "@graphprotocol/graph-ts": "0.23.1",
-        "@pooltogether/v4-core": "1.1.0",
-        "matchstick-as": "0.2.0",
-        "mustache": "4.0.1"
+        "@graphprotocol/graph-cli": "0.30.4",
+        "@graphprotocol/graph-ts": "0.27.0",
+        "@pooltogether/v4-core": "1.2.0",
+        "matchstick-as": "0.5.0",
+        "mustache": "4.2.0"
     },
     "devDependencies": {
-        "prettier": "2.4.1"
+        "prettier": "2.6.2"
     }
 }
