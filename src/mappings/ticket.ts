@@ -13,10 +13,10 @@ export function handleDelegated(event: Delegated): void {
     const ticketAddress = event.address.toHexString();
     loadOrCreateTicket(ticketAddress);
 
-    const delegateAccount = loadOrCreateAccount(delegate.toHexString());
+    const delegateAccount = loadOrCreateAccount(delegate.toHexString(), ticketAddress);
     setTicket(ticketAddress, delegateAccount);
 
-    const delegateeAccount = loadOrCreateAccount(delegatee.toHexString());
+    const delegateeAccount = loadOrCreateAccount(delegatee.toHexString(), ticketAddress);
     setTicket(ticketAddress, delegateeAccount);
 
     setDelegatee(delegateAccount, delegateeAccount.id);
@@ -31,7 +31,7 @@ export function handleNewUserTwab(event: NewUserTwab): void {
     const ticketAddress = event.address.toHexString();
     loadOrCreateTicket(ticketAddress);
 
-    const account = loadOrCreateAccount(delegate.toHexString());
+    const account = loadOrCreateAccount(delegate.toHexString(), ticketAddress);
     setTicket(ticketAddress, account);
 
     const ticketContract = Ticket.bind(event.address);
@@ -53,10 +53,10 @@ export function handleTransfer(event: Transfer): void {
     const ticketAddress = event.address.toHexString();
     loadOrCreateTicket(ticketAddress);
 
-    const fromAccount = loadOrCreateAccount(from.toHexString());
+    const fromAccount = loadOrCreateAccount(from.toHexString(), ticketAddress);
     setTicket(ticketAddress, fromAccount);
 
-    const toAccount = loadOrCreateAccount(to.toHexString());
+    const toAccount = loadOrCreateAccount(to.toHexString(), ticketAddress);
     setTicket(ticketAddress, toAccount);
 
     const ticketContract = Ticket.bind(event.address);
