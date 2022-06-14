@@ -1,7 +1,25 @@
 {
-  "network": "matic",
-  "ticket": {
+  "network": "rinkeby",
+  "tickets": [
+    {
     "address": "0x3c7A525a46Db2EE787060083fd8A44403f28a920",
-    "startBlock": "9579251"
-  }
+    "startBlock": "9579251",
+    "symbol": ""
+    },
+    {
+      "address": "0x95448A041D34241177b375a65efB34C61Ad9e2B3",
+      "startBlock": "10822694",
+      "symbol": "PTaUSDC5"
+    },
+    {
+      "address": "0x485cB32f8e7159feebf98e19D0f9b2Dc7348Ac77",
+      "startBlock": "10822697",
+      "symbol": "PTaDAI10"
+    },
+    {
+      "address": "0x22D7D499D13eE75210A0F3215A2D8942B5B233b4",
+      "startBlock": "10822705",
+      "symbol": "PTaUSDC15"
+    }
+  ]
 }

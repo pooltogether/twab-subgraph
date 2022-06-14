@@ -2,14 +2,14 @@ specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
-  {{#ticket}}
-  - name: Ticket
+  {{#tickets}}
+  - name: Ticket{{symbol}}
     kind: ethereum/contract
     network: {{network}}
     source:
-      address: "{{ticket.address}}"
+      address: "{{address}}"
       abi: Ticket
-      startBlock: {{ticket.startBlock}}
+      startBlock: {{startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -27,5 +27,5 @@ dataSources:
           handler: handleDelegated
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-    {{/ticket}}
+    {{/tickets}}
 

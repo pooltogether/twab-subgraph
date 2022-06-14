@@ -7,8 +7,8 @@ import {
     assertTwabFields,
     delegateAddress,
     delegateeAddress,
-    delegateAccountId,
-    delegateeAccountId,
+    delegateAccountAddress,
+    delegateeAccountAddress,
 } from './helpers/assertField';
 import {
     createDelegatedEvent,
@@ -56,7 +56,7 @@ const createNewUserTwab = (
 test('should handleDelegated', () => {
     createNewUserTwab(delegateAddress, balance, delegateBalance);
 
-    const delegatedEvent = createDelegatedEvent(delegateAccountId, delegateeAccountId);
+    const delegatedEvent = createDelegatedEvent(delegateAccountAddress, delegateeAccountAddress);
 
     createNewUserTwab(delegateeAddress, delegateBalance, balance);
 
@@ -64,17 +64,19 @@ test('should handleDelegated', () => {
 
     handleDelegated(delegatedEvent);
 
-    const delegateeAccount = Account.load(delegateeAccountId) as Account;
+    const delegateeAccount = Account.load(
+        generateCompositeId(ticketAddress, delegateeAccountAddress),
+    ) as Account;
 
     assertAccountFields(
-        delegateAccountId,
+        delegateAccountAddress,
         ticketAddress,
         balance,
         delegateBalance,
         delegateeAccount,
     );
 
-    assertAccountFields(delegateeAccountId, ticketAddress, delegateBalance, balance);
+    assertAccountFields(delegateeAccountAddress, ticketAddress, delegateBalance, balance);
 
     clearStore();
 });
@@ -87,8 +89,15 @@ test('should handleNewUserTwab', () => {
 
     const twabId = generateCompositeId(delegateAddress.toHexString(), blockTimestamp.toHexString());
 
-    assertAccountFields(delegateAccountId, ticketAddress, balance, delegateBalance);
-    assertTwabFields(delegateAccountId, twabId, blockTimestamp, delegateBalance, twabAmount);
+    assertAccountFields(delegateAccountAddress, ticketAddress, balance, delegateBalance);
+    assertTwabFields(
+        delegateAccountAddress,
+        ticketAddress,
+        twabId,
+        blockTimestamp,
+        delegateBalance,
+        twabAmount,
+    );
 
     clearStore();
 });
@@ -117,8 +126,8 @@ test('should handleTransfer', () => {
 
     handleTransfer(transferEvent);
 
-    assertAccountFields(delegateAccountId, ticketAddress, 0, 0);
-    assertAccountFields(delegateeAccountId, ticketAddress, balance, balance);
+    assertAccountFields(delegateAccountAddress, ticketAddress, 0, 0);
+    assertAccountFields(delegateeAccountAddress, ticketAddress, balance, balance);
 
     clearStore();
 });

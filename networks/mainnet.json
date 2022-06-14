@@ -1,7 +1,8 @@
 {
   "network": "mainnet",
-  "ticket": {
+  "tickets": [{
     "address": "0xdd4d117723C257CEe402285D3aCF218E9A8236E1",
-    "startBlock": "13419915"
-  }
+    "startBlock": "13419915",
+    "symbol": ""
+  }]
 }

@@ -32,6 +32,7 @@
         "all-avalanche": "yarn clean && yarn prepare:avalanche && yarn gen:avalanche && yarn deploy:avalanche",
         "all-optimism-kovan": "yarn clean && yarn prepare:optimism-kovan && yarn gen:optimism-kovan && yarn deploy:optimism-kovan",
         "build:mainnet": "graph build subgraph.mainnet.yaml",
+        "build:rinkeby": "graph build subgraph.rinkeby.yaml",
         "build:polygon": "graph build subgraph.polygon.yaml",
         "build:avalanche": "graph build subgraph.avalanche.yaml",
         "build:optimism-kovan": "graph build subgraph.optimism-kovan.yaml",
@@ -40,13 +41,14 @@
         "test": "yarn clean && yarn prepare:polygon && yarn gen:polygon && cp subgraph.polygon.yaml subgraph.yaml && graph test"
     },
     "dependencies": {
-        "@graphprotocol/graph-cli": "0.23.1",
-        "@graphprotocol/graph-ts": "0.23.1",
-        "@pooltogether/v4-core": "1.1.0",
-        "matchstick-as": "0.2.0",
-        "mustache": "4.0.1"
+        "@graphprotocol/graph-cli": "0.30.4",
+        "@graphprotocol/graph-ts": "0.27.0",
+        "@pooltogether/v4-core": "1.2.0",
+        "matchstick-as": "0.5.0",
+        "mustache": "4.2.0"
     },
     "devDependencies": {
-        "prettier": "2.4.1"
+        "husky": "8.0.1",
+        "prettier": "2.6.2"
     }
 }

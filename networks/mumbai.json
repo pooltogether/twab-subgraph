@@ -1,7 +1,8 @@
 {
   "network": "mumbai",
-  "ticket": {
+  "tickets": [{
     "address": "0x34445304E2ad5418CD052E6511652a5dA80aA0aE",
-    "startBlock": "21004715"
-  }
+    "startBlock": "21004715",
+    "symbol": ""
+  }]
 }

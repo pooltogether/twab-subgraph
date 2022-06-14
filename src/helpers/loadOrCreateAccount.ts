@@ -1,12 +1,16 @@
 import { Account } from '../../generated/schema';
+import { generateCompositeId } from '../helpers/common';
 
-export function loadOrCreateAccount(id: string): Account {
-    let delegateAccount = Account.load(id);
+export function loadOrCreateAccount(accountAddress: string, ticketAddress: string): Account {
+    const id = generateCompositeId(ticketAddress, accountAddress);
+
+    let account = Account.load(id);
 
     // create case
-    if (delegateAccount == null) {
-        delegateAccount = new Account(id);
+    if (account == null) {
+        account = new Account(id);
+        account.address = accountAddress;
     }
 
-    return delegateAccount as Account;
+    return account as Account;
 }
