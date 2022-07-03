@@ -32,6 +32,12 @@ $ yarn clean && yarn prepare:polygon && yarn gen:polygon && yarn deploy:polygon
 $ yarn clean && yarn prepare:avalanche && yarn gen:avalanche && yarn deploy:avalanche
 ```
 
+#### For Optimism:
+
+```sh
+$ yarn clean && yarn prepare:optimism && yarn gen:optimism && yarn deploy:optimism
+```
+
 #### For Optimism-Kovan:
 
 ```sh
