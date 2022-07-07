@@ -1,8 +1,7 @@
 {
     "network": "optimism",
     "ticket": {
-      "address": "0x5E5b54cd73872ba3103cd95A58067A7079d0259b",
-      "startBlock": "13641374"
+      "address": "0x62BB4fc73094c83B5e952C2180B23fA7054954c4",
+      "startBlock": "14043022"
     }
   }
-  
