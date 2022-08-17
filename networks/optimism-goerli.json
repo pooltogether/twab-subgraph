@@ -1,0 +1,7 @@
+{
+    "network": "optimism-goerli",
+    "ticket": {
+      "address": "0x8537C5a9AAd3ec1D31a84e94d19FcFC681E83ED0",
+      "startBlock": "463142"
+    }
+  }

@@ -17,38 +17,58 @@ Monitors changes in v4 Ticket TWAB.
 #### For Mainnet:
 
 ```sh
-$ yarn clean && yarn prepare:mainnet && yarn gen:mainnet && yarn deploy:mainnet
+$ yarn all-mainnet
 ```
 
 #### For Polygon:
 
 ```sh
-$ yarn clean && yarn prepare:polygon && yarn gen:polygon && yarn deploy:polygon
+$ yarn all-polygon
 ```
 
 #### For Avalanche:
 
 ```sh
-$ yarn clean && yarn prepare:avalanche && yarn gen:avalanche && yarn deploy:avalanche
+$ yarn all-avalanche
 ```
 
 #### For Optimism:
 
 ```sh
-$ yarn clean && yarn prepare:optimism && yarn gen:optimism && yarn deploy:optimism
+$ yarn all-optimism
 ```
 
-#### For Optimism-Kovan:
+#### For Testnet:
+
+#### For Goerli:
 
 ```sh
-$ yarn clean && yarn prepare:optimism-kovan && yarn gen:optimism-kovan && yarn deploy:optimism-kovan
+$ yarn all-goerli
+```
+
+#### For Mumbai:
+
+```sh
+$ yarn all-mumbai
+```
+
+#### For Optimism Goerli:
+
+```sh
+$ yarn all-optimism-goerli
 ```
 
 ### Hosted Subgraphs
 
-Subgraphs are hosted at the following URLs:
+Subgraphs are hosted at the following URLs.
 
--   https://thegraph.com/hosted-service/subgraph/pooltogether/mainnet-twab
--   https://thegraph.com/hosted-service/subgraph/pooltogether/polygon-twab
--   https://thegraph.com/hosted-service/subgraph/pooltogether/avalanche-twab
--   https://thegraph.com/hosted-service/subgraph/pooltogether/optimism-kovan-twab
+Mainnet:
+- https://thegraph.com/hosted-service/subgraph/pooltogether/mainnet-twab
+- https://thegraph.com/hosted-service/subgraph/pooltogether/polygon-twab
+- https://thegraph.com/hosted-service/subgraph/pooltogether/avalanche-twab
+- https://thegraph.com/hosted-service/subgraph/pooltogether/optimism-twab
+
+Testnet:
+- https://thegraph.com/hosted-service/subgraph/pooltogether/goerli-twab
+- https://thegraph.com/hosted-service/subgraph/pooltogether/mumbai-twab
+- https://thegraph.com/hosted-service/subgraph/pooltogether/optimism-goerli-twab

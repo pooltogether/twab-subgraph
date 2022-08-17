@@ -5,13 +5,13 @@ build
 
 subgraph.yaml
 
-subgraph.rinkeby.yaml
+subgraph.goerli.yaml
 subgraph.mainnet.yaml
 subgraph.polygon.yaml
 subgraph.mumbai.yaml
 subgraph.avalanche.yaml
 subgraph.optimism.yaml
-subgraph.optimism-kovan.yaml
+subgraph.optimism-goerli.yaml
 
 networks/local.json
 generated
