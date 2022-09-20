@@ -1,0 +1,7 @@
+{
+    "network": "arbitrum-goerli",
+    "ticket": {
+      "address": "0x8739Da6c93D0CE6F5de9D2d71493fAF012F2bDbD",
+      "startBlock": "115079"
+    }
+  }

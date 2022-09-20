@@ -58,6 +58,12 @@ $ yarn all-mumbai
 $ yarn all-optimism-goerli
 ```
 
+#### For Arbitrum Goerli:
+
+```sh
+$ yarn all-arbitrum-goerli
+```
+
 ### Hosted Subgraphs
 
 Subgraphs are hosted at the following URLs.
@@ -72,3 +78,4 @@ Testnet:
 - https://thegraph.com/hosted-service/subgraph/pooltogether/goerli-twab
 - https://thegraph.com/hosted-service/subgraph/pooltogether/mumbai-twab
 - https://thegraph.com/hosted-service/subgraph/pooltogether/optimism-goerli-twab
+- https://thegraph.com/hosted-service/subgraph/pooltogether/arbitrum-goerli-twab
