@@ -12,6 +12,7 @@ subgraph.mumbai.yaml
 subgraph.avalanche.yaml
 subgraph.optimism.yaml
 subgraph.optimism-goerli.yaml
+subgraph.arbitrum-goerli.yaml
 
 networks/local.json
 generated
